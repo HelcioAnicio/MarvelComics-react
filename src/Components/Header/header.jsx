@@ -12,16 +12,16 @@ export function Header () {
                     <GiHamburgerMenu className='text-4xl text-black'  />
                 </button>
                 <nav className="absolute bg-slate-900 text-white w-full h-full top-0 right-0 flex items-center justify-center">
-                    <ul className="w-1/2 h-1/2 border-white border-solid border-2 flex-col flex-wrap justify-between items-center">
-                        <li className='text-right'> 
+                    <ul className="mx-atuo w-1/2 h-1/2 flex flex-col justify-between items-center relative pt-20">
+                        <li className='absolute top-0 right-0'>  
                             <button type="button">
-                                <FaRegTimesCircle className='text-3xl mb-5'/>
+                                <FaRegTimesCircle className='text-3xl'/>
                             </button>
                         </li>
-                        <li className='inline-block border border-w'>Home</li>
-                        <li className='inline-block border border-w'>Characters</li>
-                        <li className='inline-block border border-w'>Comics</li>
-                        <li className='inline-block border border-w'>Contact</li>
+                        <li>Home</li>
+                        <li>Characters</li>
+                        <li>Comics</li>
+                        <li>Contact</li>
                     </ul>
                 </nav>
             </header>   
