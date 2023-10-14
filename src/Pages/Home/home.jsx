@@ -7,9 +7,9 @@ export function Home() {
   // const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div className='h-screen'>
       <Header />
       <Main />
-    </>
+    </div>
     )
 }
