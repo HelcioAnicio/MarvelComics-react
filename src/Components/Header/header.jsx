@@ -11,7 +11,7 @@ export function Header () {
                 <div>
                     <input type="search" name="search" className='hidden'/>
                     <button type="button" className="bg-transparent cursor-pointer">
-                        <GiHamburgerMenu className='text-4xl text-white'/>
+                        <GiHamburgerMenu className='text-3xl text-white'/>
                     </button>
                 </div>
 
