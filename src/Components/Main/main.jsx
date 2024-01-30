@@ -5,7 +5,7 @@ export function Main() {
   const authentication = `apikey=8e30179e891ae0ca9d101872b0217c7e&hash=232cc1a3d5ad13b80cf2ce6d224bb2f4&ts=1`;
   const [charactersRandom, setCharactersRandom] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [characterSearched, setCharactersSearched] = useState([]);
+  const [charactersSearched, setCharactersSearched] = useState([]);
 
   const getApiRandom = async () => {
     const maxCharacters = 1500;
@@ -13,46 +13,47 @@ export function Main() {
     const apiUrlRandom = `https://gateway.marvel.com/v1/public/characters?limit=8&offset=${offset}&${authentication}`;
     const response = await fetch(apiUrlRandom);
     const data = await response.json();
-    console.log(data);
-    return data.data.results;
+    return data;
   };
-
   useEffect(() => {
     async function fetchRandomCharacters() {
-      const characterData = await getApiRandom();
-      setCharactersRandom(characterData);
+      const characterDataRandom = await getApiRandom();
+      console.log(characterDataRandom);
+      setCharactersRandom(characterDataRandom.data.results);
     }
     fetchRandomCharacters();
   }, []);
 
   // GET API BY CLICK ON BUTTON
   const getApiSearched = async (searchValue) => {
-    const apiUrlSearched = `https://gateway.marvel.com/v1/public/characters?limit=20&nameStartsWith=${searchValue}&${authentication}`;
+    const apiUrlSearched = `https://gateway.marvel.com/v1/public/characters?limit=50&nameStartsWith=${searchValue}&${authentication}`;
     const response = await fetch(apiUrlSearched);
     const data = await response.json();
-    console.log(data);
     return data;
   };
   // SHOW CHARACTER AFTER REQUEST ON API
-  const showCharacterSearched = async (searchValue) => {
+  const showCharactersSearched = async (searchValue) => {
     const data = await getApiSearched(searchValue);
-    console.log(data);
+    // console.log(data);
     return data;
   };
-
+  //Set each character using useEffect
+  async function fetchCharactersSearched(searchValue) {
+    const characterDataSearched = await showCharactersSearched(searchValue);
+    console.log(characterDataSearched);
+    setCharactersSearched(characterDataSearched.data.results);
+  }
   useEffect(() => {
-    async function fetchCharactersSearched() {
-      const characterData = await getApiSearched();
-      setCharactersSearched(characterData);
+    if (searchValue !== "") {
+      fetchCharactersSearched(searchValue);
     }
-    fetchCharactersSearched();
-  }, []);
+  }, [searchValue]);
 
   // EVENT CLICK
   const handleClick = () => {
-    console.log(searchValue);
-    showCharacterSearched(searchValue);
+    fetchCharactersSearched(searchValue);
   };
+
   // INPUT VALUE
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -82,7 +83,7 @@ export function Main() {
         </section>
 
         <section className="h-full flex flex-wrap gap-4">
-          {characterSearched.map((character) => (
+          {charactersSearched.map((character) => (
             <div
               key={character.id}
               className="flex-[1_1_150px] max-w-[280px] flex flex-col items-center justify-between pb-6 border shadow-md">
@@ -95,11 +96,11 @@ export function Main() {
               </figure>
               <div className="text-center mt-2 mb-5">
                 <h4 className="py-2 w-60 m-auto text-2xl">{character.name}</h4>
-                <p className="py-2 px-2">
+                {/* <p className="py-2 px-2">
                   {character.description !== ""
                     ? character.description
                     : "Marvel didn't provide information"}
-                </p>
+                </p> */}
               </div>
               <button
                 type="button"
@@ -124,11 +125,11 @@ export function Main() {
               </figure>
               <div className="text-center mt-2 mb-5">
                 <h4 className="py-2 w-60 m-auto text-2xl">{character.name}</h4>
-                <p className="py-2 px-2">
+                {/* <p className="py-2 px-2">
                   {character.description !== ""
                     ? character.description
                     : "Marvel didn't provide information"}
-                </p>
+                </p> */}
               </div>
               <button
                 type="button"
