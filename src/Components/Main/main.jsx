@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-export function Main() {
+export function Main({resultSearch}) {
   const authentication = `apikey=8e30179e891ae0ca9d101872b0217c7e&hash=232cc1a3d5ad13b80cf2ce6d224bb2f4&ts=1`;
   const [charactersRandom, setCharactersRandom] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -82,7 +82,14 @@ export function Main() {
           </div>
         </section>
 
+        {const resultSearch =}
+        {if (searchValue !== '') {
+          searchValue
+        } else {
+          
+        }}
         <section className="h-full flex flex-wrap gap-4">
+          {resultSearch !== ''}
           {charactersSearched.map((character) => (
             <div
               key={character.id}
