@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-export function Main({resultSearch}) {
+export function Main({ resultSearch }) {
   const authentication = `apikey=8e30179e891ae0ca9d101872b0217c7e&hash=232cc1a3d5ad13b80cf2ce6d224bb2f4&ts=1`;
   const [charactersRandom, setCharactersRandom] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [charactersSearched, setCharactersSearched] = useState([]);
+  const [showRandomCharacters, setShowRandomCharacters] = useState(true);
+  const [showSearchedCharacters, setShowSearchedCharacters] = useState(true);
 
   const getApiRandom = async () => {
     const maxCharacters = 1500;
@@ -46,6 +48,11 @@ export function Main({resultSearch}) {
   useEffect(() => {
     if (searchValue !== "") {
       fetchCharactersSearched(searchValue);
+      setShowRandomCharacters(false);
+      setShowSearchedCharacters(true);
+    } else {
+      setShowRandomCharacters(true);
+      setShowSearchedCharacters(false);
     }
   }, [searchValue]);
 
@@ -82,70 +89,67 @@ export function Main({resultSearch}) {
           </div>
         </section>
 
-        {const resultSearch =}
-        {if (searchValue !== '') {
-          searchValue
-        } else {
-          
-        }}
-        <section className="h-full flex flex-wrap gap-4">
-          {resultSearch !== ''}
-          {charactersSearched.map((character) => (
-            <div
-              key={character.id}
-              className="flex-[1_1_150px] max-w-[280px] flex flex-col items-center justify-between pb-6 border shadow-md">
-              <figure className="w-full">
-                <img
-                  className="w-full"
-                  src={`${character.thumbnail.path}/standard_fantastic.jpg`}
-                  alt="Image of character"
-                />
-              </figure>
-              <div className="text-center mt-2 mb-5">
-                <h4 className="py-2 w-60 m-auto text-2xl">{character.name}</h4>
-                {/* <p className="py-2 px-2">
+        {showSearchedCharacters && (
+          <section className="h-full flex flex-wrap gap-4 px-3">
+            {charactersSearched.map((character) => (
+              <div
+                key={character.id}
+                className="flex-[1_1_100px] max-w-[150px] flex flex-col items-center justify-between pb-6 border shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="w-full"
+                    src={`${character.thumbnail.path}/standard_fantastic.jpg`}
+                    alt="Image of character"
+                  />
+                </figure>
+                <div className="text-center mt-2 mb-5">
+                  <h4 className="py-2 m-auto text-base">{character.name}</h4>
+                  {/* <p className="py-2 px-2">
                   {character.description !== ""
                     ? character.description
                     : "Marvel didn't provide information"}
                 </p> */}
+                </div>
+                <button
+                  type="button"
+                  className="rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
+                  More details
+                </button>
               </div>
-              <button
-                type="button"
-                className="rounded px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
-                More information
-              </button>
-            </div>
-          ))}
-        </section>
+            ))}
+          </section>
+        )}
 
-        <section className="h-full flex flex-wrap gap-4">
-          {charactersRandom.map((character) => (
-            <div
-              key={character.id}
-              className="flex-[1_1_150px] max-w-[280px] flex flex-col items-center justify-between pb-6 border shadow-md">
-              <figure className="w-full">
-                <img
-                  className="w-full"
-                  src={`${character.thumbnail.path}/standard_fantastic.jpg`}
-                  alt="Image of character"
-                />
-              </figure>
-              <div className="text-center mt-2 mb-5">
-                <h4 className="py-2 w-60 m-auto text-2xl">{character.name}</h4>
-                {/* <p className="py-2 px-2">
-                  {character.description !== ""
-                    ? character.description
-                    : "Marvel didn't provide information"}
-                </p> */}
+        {showRandomCharacters && (
+          <section className="h-full flex flex-wrap gap-4">
+            {charactersRandom.map((character) => (
+              <div
+                key={character.id}
+                className="flex-[1_1_100px] max-w-[130px] flex flex-col items-center justify-between pb-6 border shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="w-full"
+                    src={`${character.thumbnail.path}/standard_fantastic.jpg`}
+                    alt="Image of character"
+                  />
+                </figure>
+                <div className="text-center mt-2 mb-5">
+                  <h4 className="py-2 m-auto text-base">{character.name}</h4>
+                  {/* <p className="py-2 px-2">
+                    {character.description !== ""
+                      ? character.description
+                      : "Marvel didn't provide information"}
+                  </p> */}
+                </div>
+                <button
+                  type="button"
+                  className="rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
+                  More details
+                </button>
               </div>
-              <button
-                type="button"
-                className="rounded px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
-                More information
-              </button>
-            </div>
-          ))}
-        </section>
+            ))}
+          </section>
+        )}
       </main>
     </>
   );
