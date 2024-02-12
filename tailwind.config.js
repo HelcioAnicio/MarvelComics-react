@@ -8,7 +8,12 @@ export default {
   ],
   theme: {
     screens: {
-      md: { max: "767px" },
+      "2xl": { "min": "1800px" },
+      "xl": { "min": "1500px" },
+      "lg": { "min": "1000px" },
+      "md": { "min": "600px" },
+      "sm": { "min": "500px" },
+      "xs": { "min": "340px" },
     },
     // extend: {},
   },

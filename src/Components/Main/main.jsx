@@ -68,42 +68,42 @@ export function Main({ resultSearch }) {
 
   return (
     <>
-      <main className="bg-white max-h-content">
-        <section className="flex flex-wrap items-center justify-center px-4 min-md:justify-between md:justify-between">
-          <h1 className="text-center py-3">Everything about Marvel's comics</h1>
-          <div className="flex justify-between w-72">
+      <main className='bg-white max-h-content'>
+        <section className='flex flex-wrap items-center justify-center px-4 md:justify-between'>
+          <h1 className='text-center py-3'>Everything about Marvel's comics</h1>
+          <div className='flex justify-between w-72'>
             <input
-              type="search"
-              name="search"
+              type='search'
+              name='search'
               value={searchValue}
               onChange={handleChange}
-              placeholder="Search for what you want"
-              className="w-4/5 max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600"
+              placeholder='Search for what you want'
+              className='w-4/5 max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600'
             />
             <button
-              type="button"
+              type='button'
               onClick={handleClick}
-              className="w-10 h-9 bg-transparent">
-              <FaSearch className="text-1xl inline-block" />
+              className='w-10 h-9 bg-transparent'>
+              <FaSearch className='text-1xl inline-block' />
             </button>
           </div>
         </section>
 
         {showSearchedCharacters && (
-          <section className="h-full flex flex-wrap gap-4 px-3">
+          <section className='h-full flex flex-wrap gap-4 px-3'>
             {charactersSearched.map((character) => (
               <div
                 key={character.id}
-                className="flex-[1_1_100px] max-w-[150px] flex flex-col items-center justify-between pb-6 border shadow-md">
-                <figure className="w-full">
+                className='flex-[1_1_100px] max-w-[150px] flex flex-col items-center justify-between pb-6 border shadow-md'>
+                <figure className='w-full'>
                   <img
-                    className="w-full"
+                    className='w-full'
                     src={`${character.thumbnail.path}/standard_fantastic.jpg`}
-                    alt="Image of character"
+                    alt='Image of character'
                   />
                 </figure>
-                <div className="text-center mt-2 mb-5">
-                  <h4 className="py-2 m-auto text-base">{character.name}</h4>
+                <div className='text-center mt-2 mb-5'>
+                  <h4 className='py-2 m-auto text-base'>{character.name}</h4>
                   {/* <p className="py-2 px-2">
                   {character.description !== ""
                     ? character.description
@@ -111,8 +111,8 @@ export function Main({ resultSearch }) {
                 </p> */}
                 </div>
                 <button
-                  type="button"
-                  className="rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
+                  type='button'
+                  className='rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg'>
                   More details
                 </button>
               </div>
@@ -121,20 +121,20 @@ export function Main({ resultSearch }) {
         )}
 
         {showRandomCharacters && (
-          <section className="h-full flex flex-wrap gap-4">
+          <section className='h-full flex flex-wrap gap-4'>
             {charactersRandom.map((character) => (
               <div
                 key={character.id}
-                className="flex-[1_1_100px] max-w-[130px] flex flex-col items-center justify-between pb-6 border shadow-md">
-                <figure className="w-full">
+                className='flex-[1_1_100px] max-w-[130px] flex flex-col items-center justify-between pb-6 border shadow-md'>
+                <figure className='w-full'>
                   <img
-                    className="w-full"
+                    className='w-full'
                     src={`${character.thumbnail.path}/standard_fantastic.jpg`}
-                    alt="Image of character"
+                    alt='Image of character'
                   />
                 </figure>
-                <div className="text-center mt-2 mb-5">
-                  <h4 className="py-2 m-auto text-base">{character.name}</h4>
+                <div className='text-center mt-2 mb-5'>
+                  <h4 className='py-2 m-auto text-base'>{character.name}</h4>
                   {/* <p className="py-2 px-2">
                     {character.description !== ""
                       ? character.description
@@ -142,8 +142,8 @@ export function Main({ resultSearch }) {
                   </p> */}
                 </div>
                 <button
-                  type="button"
-                  className="rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg">
+                  type='button'
+                  className='rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg'>
                   More details
                 </button>
               </div>
