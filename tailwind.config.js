@@ -8,9 +8,10 @@ export default {
   ],
   theme: {
     screens: {
-      "2xl": { "min": "1800px" },
-      "xl": { "min": "1500px" },
-      "lg": { "min": "1000px" },
+      "3xl": { "min": "1800px" },
+      "2xl": { "min": "1500px" },
+      "xl": { "min": "1000px" },
+      "lg": { "min": "800px" },
       "md": { "min": "600px" },
       "sm": { "min": "500px" },
       "xs": { "min": "340px" },

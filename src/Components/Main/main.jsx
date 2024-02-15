@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import { ButtonSearch } from "../ButtonSearch/buttonSearch";
 import { FaSearch } from "react-icons/fa";
 
 export function Main({ resultSearch }) {
@@ -9,18 +10,27 @@ export function Main({ resultSearch }) {
   const [showRandomCharacters, setShowRandomCharacters] = useState(true);
   const [showSearchedCharacters, setShowSearchedCharacters] = useState(true);
 
+  // const getApiEvents = async () => {
+  //   const apiUrlEvents = `https://gateway.marvel.com/v1/public/events?limit=8&${authentication}`;
+  //   const response = await fetch(apiUrlEvents);
+  //   const data = await response.json();
+  //   console.log(data);
+  //   return data;
+  // };
+  // getApiEvents();
+
   const getApiRandom = async () => {
     const maxCharacters = 1500;
     const offset = Math.floor(Math.random() * maxCharacters + 1);
     const apiUrlRandom = `https://gateway.marvel.com/v1/public/characters?limit=8&offset=${offset}&${authentication}`;
     const response = await fetch(apiUrlRandom);
     const data = await response.json();
+    console.log(data);
     return data;
   };
   useEffect(() => {
     async function fetchRandomCharacters() {
       const characterDataRandom = await getApiRandom();
-      console.log(characterDataRandom);
       setCharactersRandom(characterDataRandom.data.results);
     }
     fetchRandomCharacters();
@@ -69,22 +79,25 @@ export function Main({ resultSearch }) {
   return (
     <>
       <main className='bg-white max-h-content'>
-        <section className='flex flex-wrap items-center justify-center px-4 md:justify-between'>
-          <h1 className='text-center py-3'>Everything about Marvel's comics</h1>
-          <div className='flex justify-between w-72'>
+        {/* <ButtonSearch /> */}
+        <section className='flex flex-wrap items-center justify-center px-3 mb-4 md:justify-between'>
+          <h1 className='text-center py-3 text-2xl flex-1 basis-72 max-w-md'>
+            Everything about Marvel's comics
+          </h1>
+          <div className='flex justify-between flex-1 basis-72 max-w-md'>
             <input
               type='search'
               name='search'
               value={searchValue}
               onChange={handleChange}
               placeholder='Search for what you want'
-              className='w-4/5 max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600'
+              className='w-full max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600'
             />
             <button
               type='button'
               onClick={handleClick}
               className='w-10 h-9 bg-transparent'>
-              <FaSearch className='text-1xl inline-block' />
+              <FaSearch className='inline-block text-md' />
             </button>
           </div>
         </section>
