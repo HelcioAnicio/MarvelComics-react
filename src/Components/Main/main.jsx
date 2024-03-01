@@ -22,7 +22,7 @@ export function Main({ resultSearch }) {
   const getApiRandom = async () => {
     const maxCharacters = 1500;
     const offset = Math.floor(Math.random() * maxCharacters + 1);
-    const apiUrlRandom = `https://gateway.marvel.com/v1/public/characters?limit=8&offset=${offset}&${authentication}`;
+    const apiUrlRandom = `https://gateway.marvel.com/v1/public/characters?limit=4&offset=${offset}&${authentication}`;
     const response = await fetch(apiUrlRandom);
     const data = await response.json();
     console.log(data);
@@ -134,12 +134,15 @@ export function Main({ resultSearch }) {
         )}
 
         {showRandomCharacters && (
-          <section className='h-full flex flex-wrap gap-4'>
+          <section className='w-full h-max max-w-96 flex gap-2 border border-slate-950'>
             {charactersRandom.map((character) => (
               <div
                 key={character.id}
-                className='flex-[1_1_100px] max-w-[130px] flex flex-col items-center justify-between pb-6 border shadow-md'>
-                <figure className='w-full'>
+                className={`relative max-h-60 max-w-[300px] flex flex-col flex-[0_1_30px] items-center justify-between pb-6 border shadow-md grayscale opacity-80 hover:grayscale-0 hover:opacity-100 hover:flex-1 transition-all ease-linear duration-1000 animated-card delay-${
+                  character.id + 1
+                }`}
+                style={{ animationDelay: `${character.id * 1}s` }}>
+                <figure className='w-full max-w-44 max-w-xs'>
                   <img
                     className='w-full'
                     src={`${character.thumbnail.path}/standard_fantastic.jpg`}
@@ -147,7 +150,7 @@ export function Main({ resultSearch }) {
                   />
                 </figure>
                 <div className='text-center mt-2 mb-5'>
-                  <h4 className='py-2 m-auto text-base'>{character.name}</h4>
+                  <h4 className='py-2 m-auto text-xs'>{character.name}</h4>
                   {/* <p className="py-2 px-2">
                     {character.description !== ""
                       ? character.description
@@ -156,8 +159,8 @@ export function Main({ resultSearch }) {
                 </div>
                 <button
                   type='button'
-                  className='rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg'>
-                  More details
+                  className='rounded text-xs px-2 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg'>
+                  More
                 </button>
               </div>
             ))}
