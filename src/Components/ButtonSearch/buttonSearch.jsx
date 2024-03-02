@@ -1,6 +1,20 @@
-import { FaSearch } from "react-icons/fa";
+import React from "react";
+import {FaSearch} from "react-icons/fa";
 
-export function ButtonSearch() {
+export function ButtonSearch({
+  value,
+  onChange,
+  onClick,
+  fetchCharactersSearched,
+  setShowRandomCharacters,
+  setShowSearchedCharacters,
+}) {
+  const handleClick = async () => {
+    await fetchCharactersSearched(value);
+    setShowRandomCharacters(false);
+    setShowSearchedCharacters(true);
+    onClick();
+  };
   return (
     <>
       <section className='flex flex-wrap items-center justify-center px-3 mb-4 md:justify-between'>
@@ -11,8 +25,8 @@ export function ButtonSearch() {
           <input
             type='search'
             name='search'
-            value={searchValue}
-            onChange={handleChange}
+            value={value}
+            onChange={onChange}
             placeholder='Search for what you want'
             className='w-full max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600'
           />

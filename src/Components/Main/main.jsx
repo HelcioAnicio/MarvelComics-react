@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-// import { ButtonSearch } from "../ButtonSearch/buttonSearch";
-import { FaSearch } from "react-icons/fa";
+import React, {useEffect, useState} from "react";
+import {ButtonSearch} from "../ButtonSearch/buttonSearch";
+import {CharacterSearched} from "../CharacterSearched/characterSearched";
 
-export function Main({ resultSearch }) {
+export function Main({resultSearch}) {
   const authentication = `apikey=8e30179e891ae0ca9d101872b0217c7e&hash=232cc1a3d5ad13b80cf2ce6d224bb2f4&ts=1`;
   const [charactersRandom, setCharactersRandom] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -19,6 +19,7 @@ export function Main({ resultSearch }) {
   // };
   // getApiEvents();
 
+  // REQUEST API RANDOM
   const getApiRandom = async () => {
     const maxCharacters = 1500;
     const offset = Math.floor(Math.random() * maxCharacters + 1);
@@ -36,6 +37,8 @@ export function Main({ resultSearch }) {
     fetchRandomCharacters();
   }, []);
 
+  //
+  //
   // GET API BY CLICK ON BUTTON
   const getApiSearched = async (searchValue) => {
     const apiUrlSearched = `https://gateway.marvel.com/v1/public/characters?limit=50&nameStartsWith=${searchValue}&${authentication}`;
@@ -43,18 +46,20 @@ export function Main({ resultSearch }) {
     const data = await response.json();
     return data;
   };
+
   // SHOW CHARACTER AFTER REQUEST ON API
   const showCharactersSearched = async (searchValue) => {
     const data = await getApiSearched(searchValue);
     // console.log(data);
     return data;
   };
-  //Set each character using useEffect
-  async function fetchCharactersSearched(searchValue) {
+
+  //SET EACH CHARACTER USING USE EFFECT
+  const fetchCharactersSearched = async (searchValue) => {
     const characterDataSearched = await showCharactersSearched(searchValue);
     console.log(characterDataSearched);
     setCharactersSearched(characterDataSearched.data.results);
-  }
+  };
   useEffect(() => {
     if (searchValue !== "") {
       fetchCharactersSearched(searchValue);
@@ -66,11 +71,12 @@ export function Main({ resultSearch }) {
     }
   }, [searchValue]);
 
-  // EVENT CLICK
+  // BUTTON CLICK
   const handleClick = () => {
     fetchCharactersSearched(searchValue);
+    setShowRandomCharacters(false);
+    setShowSearchedCharacters(true);
   };
-
   // INPUT VALUE
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -79,59 +85,16 @@ export function Main({ resultSearch }) {
   return (
     <>
       <main className='bg-white max-h-content'>
-        {/* <ButtonSearch /> */}
-        <section className='flex flex-wrap items-center justify-center px-3 mb-4 md:justify-between'>
-          <h1 className='text-center py-3 text-2xl flex-1 basis-72 max-w-md'>
-            Everything about Marvel's comics
-          </h1>
-          <div className='flex justify-between flex-1 basis-72 max-w-md'>
-            <input
-              type='search'
-              name='search'
-              value={searchValue}
-              onChange={handleChange}
-              placeholder='Search for what you want'
-              className='w-full max-w-xs outline-none border-b-2 border-b-gray-600 px-2 rounded-sm placeholder:text-gray-600'
-            />
-            <button
-              type='button'
-              onClick={handleClick}
-              className='w-10 h-9 bg-transparent'>
-              <FaSearch className='inline-block text-md' />
-            </button>
-          </div>
-        </section>
+        <ButtonSearch
+          value={searchValue}
+          onChange={handleChange}
+          onClick={handleClick}
+        />
 
-        {showSearchedCharacters && (
-          <section className='h-full flex flex-wrap gap-4 px-3'>
-            {charactersSearched.map((character) => (
-              <div
-                key={character.id}
-                className='flex-[1_1_100px] max-w-[150px] flex flex-col items-center justify-between pb-6 border shadow-md'>
-                <figure className='w-full'>
-                  <img
-                    className='w-full'
-                    src={`${character.thumbnail.path}/standard_fantastic.jpg`}
-                    alt='Image of character'
-                  />
-                </figure>
-                <div className='text-center mt-2 mb-5'>
-                  <h4 className='py-2 m-auto text-base'>{character.name}</h4>
-                  {/* <p className="py-2 px-2">
-                  {character.description !== ""
-                    ? character.description
-                    : "Marvel didn't provide information"}
-                </p> */}
-                </div>
-                <button
-                  type='button'
-                  className='rounded text-xs px-4 py-1 border text-black hover:bg-slate-700 hover:text-white hover:border-0 transition-all ease-linear duration-500 hover:shadow-lg'>
-                  More details
-                </button>
-              </div>
-            ))}
-          </section>
-        )}
+        <CharacterSearched
+          showCharactersSearched={showCharactersSearched}
+          charactersSearched={charactersSearched}
+        />
 
         {showRandomCharacters && (
           <section className='w-full h-max max-w-96 flex gap-2 border border-slate-950'>
@@ -141,7 +104,7 @@ export function Main({ resultSearch }) {
                 className={`relative max-h-60 max-w-[300px] flex flex-col flex-[0_1_30px] items-center justify-between pb-6 border shadow-md grayscale opacity-80 hover:grayscale-0 hover:opacity-100 hover:flex-1 transition-all ease-linear duration-1000 animated-card delay-${
                   character.id + 1
                 }`}
-                style={{ animationDelay: `${character.id * 1}s` }}>
+                style={{animationDelay: `${character.id * 1}s`}}>
                 <figure className='w-full max-w-44 max-w-xs'>
                   <img
                     className='w-full'
